@@ -28,7 +28,7 @@ div {
 
 .headr span {
     margin-top: 150px;
-    border: solid black 2px;
+    /* border: solid black 2px; */
     color: var(--accent2-color);
 }
 
