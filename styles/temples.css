@@ -10,21 +10,48 @@
     box-sizing: border-box;
 }
 
-ul {
-    list-style-type: none;
-    display: flex;
-    margin-top: 18px;
+.positionhum {
+    display: grid;
+    grid-template-columns: 1fr 30px;
 }
 
-li {
-    background-color: var(--background-color);
-
-    flex: 1 1 auto;
-    height: 35px;
+#menu {
+    display: block;
     /* border: var(--border); */
     text-align: center;
-    padding-top: 4px;
+    padding-right: 5px;
+    text-decoration: none;
+    font-family: "Lilita One", sans-serif;
+    font-size: 2rem;
+}
 
+#menu::before {
+    content: "≡";
+}
+
+ul {
+    list-style-type: none;
+    display: block;
+    /* margin-top: 18px; */
+}
+
+.navigation li {
+    background-color: var(--background-color);
+    /* flex: 1 1 auto; */
+    height: 35px;
+    border: var(--border);
+    text-align: center;
+    padding-top: 4px;
+    display: none;
+
+}
+
+.show li {
+    display: block;
+}
+
+#menu.show::before {
+    content: "X";
 }
 
 ul li a {
@@ -36,21 +63,22 @@ ul li a {
     padding-bottom: 8px;
     padding-right: 25px;
     padding-left: 25px; */
+    display: block;
 
 }
 
 h1 {
     background-color: var(--background-color);
     font-family: "Lilita One", sans-serif;
-    margin-top: 14px;
+    /* margin-top: 14px; */
     text-align: center;
 }
 
 header {
-    display: grid;
-    grid-template-columns: 300px 1fr;
+    /* display: grid; */
+    /* grid-template-columns: 300px 1fr; */
     background-color: var(--background-color);
-    height: 65px;
+    /* height: 65px; */
 }
 
 .home {
@@ -63,8 +91,10 @@ header {
     display: flex;
     flex-wrap: wrap;
     text-align: center;
-    width: 90%; /* Parent container width */
-    margin: 0 auto; /* Centers the container horizontally */
+    width: 90%;
+    /* Parent container width */
+    margin: 0 auto;
+    /* Centers the container horizontally */
 }
 
 .babydiv {
@@ -79,4 +109,3 @@ footer {
     height: 3rem;
     padding-top: 8px;
 }
-
