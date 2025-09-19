@@ -1,5 +1,21 @@
-@media screen and (min-width: 500px) {
-    h1 {
-        background-color: aliceblue;
+@media only screen and (min-width: 700px) {
+    .navigation {
+        display: flex;
+    }
+
+    .navigation li {
+        display: block;
+        flex: 1 1 auto;
+    }
+
+
+
+    #menu {
+        display: none;
+    }
+
+    header {
+        display: grid;
+        grid-template-columns: 400px 1fr;
     }
 }

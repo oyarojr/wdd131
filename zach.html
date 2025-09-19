@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M-Pesa Payment Integration Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        .step-connector {
+            position: absolute;
+            top: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: calc(100% - 2rem);
+            background-color: #e5e7eb;
+        }
+
+        .step-node {
+            position: relative;
+            z-index: 10;
+        }
+
+        .toast {
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
+            transform: translateY(20px);
+        }
+
+        .toast.show {
+            visibility: visible;
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+    <!-- Chosen Palette: Soothing Neutrals -->
+    <!-- Application Structure Plan: A single-page, top-down interactive guide. It starts with a high-level explanation and process diagram, then breaks down the client-side and server-side code requirements step-by-step. It culminates in a sandboxed, interactive demo that simulates the entire payment flow for the user. This structure is chosen to be educational, walking the user from concept to a tangible (simulated) experience, which is more effective for understanding a complex multi-step API integration than a simple dashboard. -->
+    <!-- Visualization & Content Choices: Report Info: M-Pesa Integration Process -> Goal: Educate & Demonstrate -> Presentation: A combination of styled text blocks for explanation, code snippets for technical details, a CSS-based diagram for the process flow, and an interactive form for simulation. Interaction: The user can input data into the form and click a button to trigger a simulated API call, receiving visual feedback on the process and outcome. Justification: This multi-faceted approach caters to both conceptual understanding and practical application, making the complex topic of payment integration digestible. It avoids complex charts as the data is procedural, not statistical. Library/Method: Vanilla JS for simulation logic, Tailwind CSS for layout and styling. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+</head>
+
+<body class="text-gray-800">
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <header class="text-center mb-16">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-900 tracking-tight">Integrating M-Pesa Payments</h1>
+            <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">A step-by-step guide to adding M-Pesa Express (STK
+                Push) functionality to your web application.</p>
+        </header>
+
+        <main>
+            <!-- Introduction Section -->
+            <section id="introduction" class="mb-20">
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-200">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-4">How M-Pesa Express Works</h2>
+                    <p class="text-gray-600 mb-8">
+                        The M-Pesa Express API, also known as STK Push, provides a seamless payment experience. Instead
+                        of requiring users to manually enter a business number and account details, your application
+                        initiates the transaction, and the user simply has to enter their M-Pesa PIN on a pop-up on
+                        their phone. This guide explains the entire flow, from the user interface to the necessary
+                        backend logic.
+                    </p>
+                    <div class="w-full overflow-x-auto p-2">
+                        <div class="flex items-start justify-between min-w-[600px] text-center text-sm">
+                            <div class="w-1/5 flex flex-col items-center">
+                                <div class="p-4 bg-emerald-100 text-emerald-700 rounded-full text-2xl">📱</div>
+                                <h3 class="font-semibold mt-2">1. Your App (Frontend)</h3>
+                                <p class="text-gray-500 text-xs mt-1">User enters phone & amount and clicks "Pay".</p>
+                            </div>
+                            <div class="flex-1 pt-5">
+                                <div class="w-full h-0.5 bg-gray-300"></div>
+                            </div>
+                            <div class="w-1/5 flex flex-col items-center">
+                                <div class="p-4 bg-sky-100 text-sky-700 rounded-full text-2xl">⚙️</div>
+                                <h3 class="font-semibold mt-2">2. Your Server (Backend)</h3>
+                                <p class="text-gray-500 text-xs mt-1">Receives request and securely calls the M-Pesa
+                                    API.</p>
+                            </div>
+                            <div class="flex-1 pt-5">
+                                <div class="w-full h-0.5 bg-gray-300"></div>
+                            </div>
+                            <div class="w-1/5 flex flex-col items-center">
+                                <div class="p-4 bg-indigo-100 text-indigo-700 rounded-full text-2xl">🏦</div>
+                                <h3 class="font-semibold mt-2">3. M-Pesa API</h3>
+                                <p class="text-gray-500 text-xs mt-1">Validates request and sends STK Push to the user.
+                                </p>
+                            </div>
+                            <div class="flex-1 pt-5">
+                                <div class="w-full h-0.5 bg-gray-300"></div>
+                            </div>
+                            <div class="w-1/5 flex flex-col items-center">
+                                <div class="p-4 bg-rose-100 text-rose-700 rounded-full text-2xl">🔄</div>
+                                <h3 class="font-semibold mt-2">4. M-Pesa Callback</h3>
+                                <p class="text-gray-500 text-xs mt-1">Sends transaction result back to your server's
+                                    callback URL.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Interactive Demo Section -->
+            <section id="demo" class="mb-20">
+                <h2 class="text-3xl font-bold text-gray-900 mb-6 text-center">Interactive Demo</h2>
+                <p class="text-gray-600 mb-8 max-w-3xl mx-auto text-center">
+                    This form simulates the M-Pesa payment flow. No real transaction will be made. Enter a phone number
+                    and an amount to see the process in action, from initiation to the final callback result.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
+                    <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-200">
+                        <h3 class="text-xl font-semibold mb-1">Simulate a Payment</h3>
+                        <p class="text-gray-500 mb-6 text-sm">Enter details below to start the simulation.</p>
+                        <form id="payment-form">
+                            <div class="mb-4">
+                                <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone
+                                    Number</label>
+                                <input type="tel" id="phone" name="phone"
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500"
+                                    placeholder="e.g., 254712345678" value="254712345678" required>
+                            </div>
+                            <div class="mb-6">
+                                <label for="amount" class="block text-sm font-medium text-gray-700 mb-1">Amount
+                                    (KES)</label>
+                                <input type="number" id="amount" name="amount"
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500"
+                                    placeholder="e.g., 10" value="10" required>
+                            </div>
+                            <button type="submit" id="pay-button"
+                                class="w-full bg-emerald-600 text-white font-semibold py-3 px-4 rounded-lg hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-all duration-200 flex items-center justify-center">
+                                <span id="pay-button-text">Pay Now</span>
+                                <div id="loading-spinner"
+                                    class="hidden w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin ml-2">
+                                </div>
+                            </button>
+                        </form>
+                    </div>
+
+                    <div class="bg-gray-900 text-white p-8 rounded-2xl h-full flex flex-col">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <span class="mr-2"></span>
+                            Simulation Log
+                        </h3>
+                        <div id="simulation-log" class="text-sm font-mono space-y-2 flex-grow overflow-y-auto pr-2">
+                            <p class="text-gray-400">Awaiting payment initiation...</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Technical Breakdown Section -->
+            <section id="breakdown">
+                <h2 class="text-3xl font-bold text-gray-900 mb-10 text-center">Technical Breakdown</h2>
+                <div class="relative">
+                    <div class="hidden md:block step-connector"></div>
+                    <div class="space-y-12">
+                        <!-- Step 1: Frontend -->
+                        <div class="md:flex items-center">
+                            <div class="md:w-1/2 md:pr-8">
+                                <div class="flex items-center mb-2">
+                                    <div
+                                        class="step-node w-8 h-8 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold mr-4">
+                                        1</div>
+                                    <h3 class="text-2xl font-bold">The Frontend Form</h3>
+                                </div>
+                                <p class="text-gray-600 ml-12">The user journey starts with a simple HTML form. Your app
+                                    collects the customer's phone number and the payment amount. When the user clicks
+                                    'Pay', your JavaScript code will send this data to your own backend server for
+                                    secure processing. <strong class="font-semibold text-rose-600">Never send API
+                                        requests directly from the frontend.</strong></p>
+                            </div>
+                            <div class="md:w-1/2 mt-6 md:mt-0">
+                                <pre class="bg-gray-800 text-white p-4 rounded-lg text-sm overflow-x-auto"><code class="language-javascript">
+// 1. Add event listener to the form
+document.getElementById('payment-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const phone = document.getElementById('phone').value;
+  const amount = document.getElementById('amount').value;
+
+  // 2. Send data to YOUR backend server
+  const response = await fetch('/your-server-endpoint/initiate-payment', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ phone, amount })
+  });
+
+  // 3. Handle the response from your server
+  const data = await response.json();
+  console.log('Server response:', data);
+});
+                                </code></pre>
+                            </div>
+                        </div>
+
+                        <!-- Step 2: Backend Authentication -->
+                        <div class="md:flex items-center flex-row-reverse">
+                            <div class="md:w-1/2 md:pl-8">
+                                <div class="flex items-center mb-2">
+                                    <div
+                                        class="step-node w-8 h-8 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold mr-4">
+                                        2</div>
+                                    <h3 class="text-2xl font-bold">Backend: Get Access Token</h3>
+                                </div>
+                                <p class="text-gray-600 ml-12">Your server's first step is to authenticate with the
+                                    M-Pesa API. You do this by sending a GET request with your Consumer Key and Consumer
+                                    Secret (from the Daraja portal) to get a temporary access token. This token is
+                                    required for all subsequent API calls.</p>
+                            </div>
+                            <div class="md:w-1/2 mt-6 md:mt-0">
+                                <pre class="bg-gray-800 text-white p-4 rounded-lg text-sm overflow-x-auto"><code class="language-javascript">
+// NOTE: This is SERVER-SIDE code (e.g., in Node.js)
+const consumerKey = 'YOUR_CONSUMER_KEY';
+const consumerSecret = 'YOUR_CONSUMER_SECRET';
+const auth = Buffer.from(${consumerKey}:${consumerSecret}).toString('base64');
+
+async function getAccessToken() {
+  const response = await fetch(
+    'https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials',
+    {
+      method: 'GET',
+      headers: { 'Authorization': Basic ${auth} }
+    }
+  );
+  const data = await response.json();
+  return data.access_token;
+}
+                                </code></pre>
+                            </div>
+                        </div>
+
+                        <!-- Step 3: Backend STK Push -->
+                        <div class="md:flex items-center">
+                            <div class="md:w-1/2 md:pr-8">
+                                <div class="flex items-center mb-2">
+                                    <div
+                                        class="step-node w-8 h-8 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold mr-4">
+                                        3</div>
+                                    <h3 class="text-2xl font-bold">Backend: Initiate STK Push</h3>
+                                </div>
+                                <p class="text-gray-600 ml-12">Using the access token, your server now makes the STK
+                                    Push request. This involves creating a special password (Base64 encoded Shortcode +
+                                    Passkey + Timestamp) and sending all the transaction details to the M-Pesa API,
+                                    including your public CallBackURL where the final result will be sent.</p>
+                            </div>
+                            <div class="md:w-1/2 mt-6 md:mt-0">
+                                <pre class="bg-gray-800 text-white p-4 rounded-lg text-sm overflow-x-auto"><code class="language-javascript">
+// NOTE: This is SERVER-SIDE code
+async function initiateSTKPush(token, amount, phone) {
+  const shortCode = '174379'; // Test shortcode
+  const passkey = 'YOUR_PASSKEY';
+  const timestamp = new Date().toISOString().replace(/[^0-9]/g, '').slice(0, 14);
+  const password = Buffer.from(shortCode + passkey + timestamp).toString('base64');
+
+  const response = await fetch('https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+          'Authorization': Bearer ${token}
+      },
+      body: JSON.stringify({
+          BusinessShortCode: shortCode,
+          Password: password,
+          Timestamp: timestamp,
+          TransactionType: 'CustomerPayBillOnline',
+          Amount: amount,
+          PartyA: phone, // Customer's phone
+          PartyB: shortCode, // Your paybill
+          PhoneNumber: phone,
+          CallBackURL: 'https://yourdomain.com/mpesa-callback',
+          AccountReference: 'WebAppPayment',
+          TransactionDesc: 'Payment for services'
+      })
+  });
+  return await response.json();
+}
+                                </code></pre>
+                            </div>
+                        </div>
+
+                        <!-- Step 4: Backend Callback -->
+                        <div class="md:flex items-center flex-row-reverse">
+                            <div class="md:w-1/2 md:pl-8">
+                                <div class="flex items-center mb-2">
+                                    <div
+                                        class="step-node w-8 h-8 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold mr-4">
+                                        4</div>
+                                    <h3 class="text-2xl font-bold">Backend: Handle Callback</h3>
+                                </div>
+                                <p class="text-gray-600 ml-12">After the user enters their PIN (or cancels), M-Pesa
+                                    sends a POST request to your CallBackURL. Your server needs an endpoint to listen
+                                    for this data. You can then parse the result, check if ResultCode is 0 (success),
+                                    and update your database, notify the user, etc.</p>
+                            </div>
+                            <div class="md:w-1/2 mt-6 md:mt-0">
+                                <pre class="bg-gray-800 text-white p-4 rounded-lg text-sm overflow-x-auto"><code class="language-javascript">
+// NOTE: This is SERVER-SIDE code (e.g., an Express.js route)
+app.post('/mpesa-callback', (req, res) => {
+  const callbackData = req.body.Body.stkCallback;
+  console.log('Callback received:', callbackData);
+
+  const resultCode = callbackData.ResultCode;
+  if (resultCode === 0) {
+    // SUCCESS
+    const metadata = callbackData.CallbackMetadata.Item;
+    const amount = metadata.find(i => i.Name === 'Amount').Value;
+    const receipt = metadata.find(i => i.Name === 'MpesaReceiptNumber').Value;
+    // TODO: Update your database with success status
+  } else {
+    // FAILED / CANCELLED
+    const resultDesc = callbackData.ResultDesc;
+    // TODO: Log the failure or update DB accordingly
+  }
+
+  // Acknowledge receipt of the callback to M-Pesa
+  res.json({ ResultCode: 0, ResultDesc: 'Accepted' });
+});
+                                </code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="text-center mt-20 border-t pt-8">
+            <p class="text-sm text-gray-500">This interactive guide is for educational purposes. Always refer to the
+                official Safaricom Daraja API documentation for production use.</p>
+        </footer>
+
+        <!-- Toast Notification -->
+        <div id="toast-notification"
+            class="toast fixed bottom-5 right-5 bg-gray-800 text-white py-3 px-5 rounded-lg shadow-lg">
+            <p id="toast-message"></p>
+        </div>
+    </div>
+
+
+    <script>
+        const paymentForm = document.getElementById('payment-form');
+        const payButton = document.getElementById('pay-button');
+        const payButtonText = document.getElementById('pay-button-text');
+        const loadingSpinner = document.getElementById('loading-spinner');
+        const simulationLog = document.getElementById('simulation-log');
+        const toast = document.getElementById('toast-notification');
+        const toastMessage = document.getElementById('toast-message');
+
+        function addLog(message, type = 'info') {
+            const p = document.createElement('p');
+            let prefix = '';
+            if (type === 'success') {
+                p.className = 'text-emerald-400';
+                prefix = '[SUCCESS] ';
+            } else if (type === 'error') {
+                p.className = 'text-rose-400';
+                prefix = '[ERROR] ';
+            } else if (type === 'process') {
+                p.className = 'text-sky-400';
+                prefix = '[PROCESS] ';
+            }
+            else {
+                p.className = 'text-gray-300';
+                prefix = '[INFO] ';
+            }
+            p.textContent = ${ prefix }${ message };
+            simulationLog.appendChild(p);
+            simulationLog.scrollTop = simulationLog.scrollHeight;
+        }
+
+        function showToast(message) {
+            toastMessage.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        paymentForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const phone = document.getElementById('phone').value;
+            const amount = document.getElementById('amount').value;
+
+            if (!phone || !amount) {
+                showToast('Please enter both phone and amount.');
+                return;
+            }
+
+            // Reset log and UI
+            simulationLog.innerHTML = '';
+            payButton.disabled = true;
+            payButtonText.textContent = 'Processing...';
+            loadingSpinner.classList.remove('hidden');
+
+            // --- Simulation Start ---
+            addLog(Initiating payment of KES ${ amount } to ${ phone }., 'info');
+
+            setTimeout(() => {
+                addLog('Request sent to server for processing.', 'process');
+            }, 1000);
+
+            setTimeout(() => {
+                addLog('Server authenticating with M-Pesa API...', 'process');
+            }, 2000);
+
+            setTimeout(() => {
+                addLog('Access token received. Initiating STK Push.', 'process');
+                showToast('STK Push sent! Check your phone to enter PIN.');
+            }, 3500);
+
+            setTimeout(() => {
+                addLog('Waiting for user to enter PIN and for M-Pesa callback...', 'info');
+            }, 5000);
+
+            setTimeout(() => {
+                const isSuccess = Math.random() > 0.2; // 80% success rate for demo
+
+                if (isSuccess) {
+                    const receipt = SFI${ Math.random().toString(36).substring(2, 10).toUpperCase()
+                };
+                addLog('Callback received from M-Pesa.', 'info');
+                addLog(Payment of KES ${ amount } successful.Receipt: ${ receipt }, 'success');
+                showToast('Payment Successful!');
+            } else {
+                addLog('Callback received from M-Pesa.', 'info');
+                    addLog('Payment failed. User cancelled or entered wrong PIN.', 'error');
+                    showToast('Payment Failed.');
+            }
+
+                // Re-enable button
+                payButton.disabled = false;
+            payButtonText.textContent = 'Pay Now';
+            loadingSpinner.classList.add('hidden');
+
+        }, 8500);
+        });
+    </script>
+</body>
+
+</html>
