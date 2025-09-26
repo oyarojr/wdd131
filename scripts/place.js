@@ -13,7 +13,13 @@ function windch(temper, windy) {
 const unfwindchi = windch(tempint, windint);
 const fowindchi = unfwindchi.toFixed(2);
 
-windchill.textContent = fowindchi;
+if (tempint <= 10 && windint > 4.8) {
+    windchill.textContent = fowindchi;
+} else {
+    windchill.textContent = "N/A";
+}
+
+
 
 
 document.getElementById('currentyear').textContent = new Date().getFullYear();
