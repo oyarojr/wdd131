@@ -1,7 +1,7 @@
 :root {
     --primary-color: #008f3e;
     --secondary-color: #f7c500;
-    --accent-1: #2e257d;
+    --accent-1: #000000;
 }
 
 .hero img {
@@ -96,6 +96,10 @@ footer {
 @media screen and (min-width: 800px) {
     main {
         position: relative;
+    }
+
+    .divI {
+        display: none;
     }
 
     .divone {
