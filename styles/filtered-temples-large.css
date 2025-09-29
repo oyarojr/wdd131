@@ -1,0 +1,22 @@
+@media only screen and (min-width: 700px) {
+    .navigation {
+        display: flex;
+    }
+
+    .navigation li {
+        display: block;
+        flex: 1 1 auto;
+        border: none;
+    }
+
+
+
+    #menu {
+        display: none;
+    }
+
+    header {
+        display: grid;
+        grid-template-columns: 400px 1fr;
+    }
+}

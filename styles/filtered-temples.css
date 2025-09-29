@@ -1,0 +1,144 @@
+:root {
+    --border: 2px solid black;
+    --background-color: #10a5d7;
+    --head-color: #ffffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.positionhum {
+    display: grid;
+    grid-template-columns: 1fr 30px;
+}
+
+#menu {
+    display: block;
+    /* border: var(--border); */
+    text-align: center;
+    padding-right: 5px;
+    text-decoration: none;
+    font-family: "Lilita One", sans-serif;
+    font-size: 2rem;
+}
+
+#menu::before {
+    content: "≡";
+}
+
+ul {
+    list-style-type: none;
+    display: block;
+    /* margin-top: 18px; */
+}
+
+.navigation li {
+    background-color: var(--background-color);
+    /* flex: 1 1 auto; */
+    height: 35px;
+    border-bottom: 0.25px solid white;
+    text-align: center;
+    /* padding-top: 4px; */
+    display: none;
+
+}
+
+.navigation li a {
+    padding: 8px;
+}
+
+.navigation a:hover,
+.navigation a:active {
+    background-color: black;
+    color: rgb(250, 249, 249);
+}
+
+.show li {
+    display: block;
+}
+
+#menu.show::before {
+    content: "X";
+}
+
+ul li a {
+    text-decoration: none;
+    color: var(--head-color);
+    font-family: "Lilita One", sans-serif;
+    /* border: var(--border); */
+    /* padding-top: 4px;
+    padding-bottom: 8px;
+    padding-right: 25px;
+    padding-left: 25px; */
+    display: block;
+    height: 35px;
+
+}
+
+h1 {
+    background-color: var(--background-color);
+    font-family: "Lilita One", sans-serif;
+    /* margin-top: 14px; */
+    text-align: center;
+}
+
+header {
+    /* display: grid; */
+    /* grid-template-columns: 300px 1fr; */
+    background-color: var(--background-color);
+    /* height: 65px; */
+}
+
+.home {
+    display: block;
+    text-align: center;
+    font-size: 3rem;
+}
+
+#temples-branches {
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+    width: 90%;
+    /* Parent container width */
+    margin: 0 auto;
+    /* Centers the container horizontally */
+}
+
+.branch {
+    text-align: center;
+    padding: 20px;
+    margin: 0 auto;
+}
+
+footer {
+    background-color: var(--background-color);
+    text-align: center;
+    height: 3rem;
+    padding-top: 8px;
+}
+
+/* @media only screen and (min-width: 700px) {
+    .navigation {
+        display: flex;
+    }
+
+    .navigation li {
+        display: block;
+        flex: 1 1 auto;
+    }
+
+
+
+    #menu {
+        display: none;
+    }
+
+    header {
+        display: grid;
+        grid-template-columns: 400px 1fr;
+    }
+} */
