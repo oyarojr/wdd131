@@ -12,16 +12,14 @@ const temples = [
     location: "Aba, Nigeria",
     dedicated: "2005, August, 7",
     area: 11500,
-    imageUrl:
-      "https://content.churchofjesuschrist.org/templesldsorg/bc/Temples/photo-galleries/aba-nigeria/400x250/aba-nigeria-temple-lds-273999-wallpaper.jpg"
+    imageUrl: "images/aba-nigeria-temple.jpg",
   },
   {
     templeName: "Manti Utah",
     location: "Manti, Utah, United States",
     dedicated: "1888, May, 21",
     area: 74792,
-    imageUrl:
-      "https://content.churchofjesuschrist.org/templesldsorg/bc/Temples/photo-galleries/manti-utah/400x250/manti-temple-768192-wallpaper.jpg"
+    imageUrl: "https://content.churchofjesuschrist.org/templesldsorg/bc/Temples/photo-galleries/manti-utah/400x250/manti-temple-768192-wallpaper.jpg"
   },
   {
     templeName: "Payson Utah",
@@ -63,25 +61,86 @@ const temples = [
     imageUrl:
       "https://content.churchofjesuschrist.org/templesldsorg/bc/Temples/photo-galleries/mexico-city-mexico/400x250/mexico-city-temple-exterior-1518361-wallpaper.jpg"
   },
+  {
+    templeName: "Nairobi Kenya Temple",
+    location: "Nairobi City Kenya",
+    dedicated: "2025, May, 18",
+    area: 19870,
+    imageUrl:
+      "images/nairobi_kenya_temple.jpg"
+  },
+  {
+    templeName: "Natal Brazil",
+    location: "Nova Parnamirim Brazil",
+    dedicated: "2025, May, 17",
+    area: 19800,
+    imageUrl:
+      "images/natal-brazil-temple.jpg"
+
+  },
+  {
+    templeName: "Cape Town South Africa",
+    location: "Cape Town, South Africa",
+    dedicated: "2025, October, 25",
+    area: 9500,
+    imageUrl:
+      "images/cape-town-south-africa-temple.webp"
+  },
   // Add more temple objects here...
 ];
 
+const smalllink = document.querySelector("#small");
+smalllink.addEventListener("click", () => {
+  document.querySelector("#temples-branches").innerHTML = "";
+  getdemcards(temples.filter(temple => temple.area < 10000));
+})
 
+const homelink = document.querySelector("#home");
+homelink.addEventListener("click", () => {
+  document.querySelector("#temples-branches").innerHTML = "";
+  getdemcards(temples);
+})
+
+const largelink = document.querySelector("#large");
+largelink.addEventListener("click", () => {
+  document.querySelector("#temples-branches").innerHTML = "";
+  getdemcards(temples.filter(temple => temple.area > 90000));
+})
+// getdemcards(temples);
 
 // Get the container element
-const container = document.getElementById("temples-branches");
+
 
 // Loop through the array and create HTML elements
+function getdemcards(sth) {
+  const container = document.getElementById("temples-branches");
+  sth.forEach(branch => {
+    const branchDiv = document.createElement("div");
+    branchDiv.className = "branch";
+
+    branchDiv.innerHTML = `
+    <h2>${branch.templeName}</h2>
+    <p><strong>Location:</strong> ${branch.location}</p>
+    <p><strong>Dedicated:</strong> ${branch.dedicated}</p>
+    <p><strong>Size:</strong> ${branch.area} km²</p>  
+    <img src="${branch.imageUrl}" alt="${branch.templeName}" style="width:300px; height:auto;" loading="lazy">
+  `;
+
+    container.appendChild(branchDiv);
+  });
+}
+
+const container = document.getElementById("temples-branches");
 temples.forEach(branch => {
   const branchDiv = document.createElement("div");
   branchDiv.className = "branch";
 
   branchDiv.innerHTML = `
-    <h2>${branch.templeName}</h2>
-    <p><strong>Location:</strong> ${branch.location}</p>
-    <p><strong>Dedicated:</strong> ${branch.dedicated}</p>
-    <p><strong>Size:</strong> ${branch.area} km²</p>  
-    <img src="${branch.image}" alt="${branch.templeName}" style="width:300px; height:auto;">
+  <h2>${branch.templeName}</h2>
+  <p><strong>Location:</strong> ${branch.location}</p>
+  <p><strong>Dedicated:</strong> ${branch.dedicated}</p>
+  <p><strong>Size:</strong> ${branch.area} km²</p>  
+  <img src="${branch.imageUrl}" alt="${branch.templeName}" style="width:300px; height:auto;" loading="lazy">
   `;
 
   container.appendChild(branchDiv);
