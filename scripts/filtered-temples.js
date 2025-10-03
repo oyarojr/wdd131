@@ -106,6 +106,26 @@ largelink.addEventListener("click", () => {
   document.querySelector("#temples-branches").innerHTML = "";
   getdemcards(temples.filter(temple => temple.area > 90000));
 })
+
+const oldlink = document.querySelector("#old");
+oldlink.addEventListener("click", () => {
+  document.querySelector("#temples-branches").innerHTML = "";
+  const templesbefore1900 = temples.filter(temple => {
+    const dedicatedYear = new Date(temple.dedicated).getFullYear();
+    return dedicatedYear < 1900;
+  });
+  getdemcards(templesbefore1900);
+})
+
+const newlink = document.querySelector("#new");
+newlink.addEventListener("click", () => {
+  document.querySelector("#temples-branches").innerHTML = "";
+  const templesAfter2000 = temples.filter(temple => {
+    const dedicatedYear = new Date(temple.dedicated).getFullYear();
+    return dedicatedYear > 2000;
+  });
+  getdemcards(templesAfter2000);
+})
 // getdemcards(temples);
 
 // Get the container element
