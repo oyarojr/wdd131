@@ -1,0 +1,42 @@
+:root {
+    --accent-color1: #333533;
+    --accent-color2: #ffee32;
+    --primary-color: #d6d6d6;
+}
+
+header,
+main,
+footer {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* border: 1px solid black; */
+}
+
+h1 {
+    background-color: var(--accent-color2);
+    /* border: 1px solid black; */
+    margin: 0;
+    padding-bottom: 5px;
+    border-radius: 6px;
+}
+
+h1 img {
+    width: 65px;
+    height: auto;
+    /* border: solid 1px black; */
+    margin-bottom: 0;
+    margin-top: 5px;
+}
+
+.p {
+    font-family: "Zalando Sans", sans-serif
+}
+
+footer {
+    background-color: var(--primary-color);
+    height: 80px;
+    text-align: center;
+    padding-top: 20px;
+    border-radius: 6px;
+}
