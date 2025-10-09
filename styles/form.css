@@ -1,0 +1,190 @@
+:root {
+    --accent-color1: #333533;
+    --accent-color2: #ffee32;
+    --primary-color: #d6d6d6;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* border: 1px solid black; */
+}
+
+header {
+    background-color: var(--accent-color2);
+    /* border-radius: 7px; */
+    height: 4em;
+    /* border: 1px solid black; */
+}
+
+header h1 {
+    text-align: center;
+    /* margin-top: 12px;
+    padding-top: 10px; */
+    font-family: "Schibsted Grotesk", sans-serif;
+}
+
+body {
+    font-family: "Zalando Sans", sans-serif;
+    background-color: #fff;
+    /* text-align: center; */
+}
+
+
+
+.leboli {
+    margin-left: 10px;
+}
+
+.mamadiv {
+    margin-left: 5px;
+    margin-top: 20px;
+}
+
+.deminput,
+textarea {
+    height: 44px;
+    width: 400px;
+    border-radius: 5px;
+    font-size: 1rem;
+    background-color: var(--primary-color);
+    border-left: 5px solid var(--accent-color1);
+}
+
+label[for="productname"],
+label[for="dateinstalled"],
+label[for="username"],
+.label,
+label[for="writtenreview"],
+.babydiv6 {
+    color: var(--accent-color1);
+    font-size: 1.3rem;
+}
+
+textarea {
+    width: 400px;
+    height: 88px;
+    border-radius: 5px;
+}
+
+label {
+    margin-top: 20px;
+}
+
+footer {
+    background-color: var(--accent-color2);
+    /* border-radius: 7px; */
+    height: 5em;
+    margin-top: 30px;
+    /* border: 1px solid black; */
+}
+
+
+
+.babydiv1,
+.babydiv2,
+.babydiv3,
+.babydiv4,
+.babydiv5,
+.babydiv6 {
+    margin-top: 25px;
+    /* font-weight: 500%; */
+    font-size: larger;
+}
+
+.babydiv6 {
+    margin-bottom: 0;
+    /* border: 1px solid black; */
+}
+
+input[type="checkbox"] {
+    width: 1.5em;
+    height: 1.5em;
+    margin-right: 15px;
+    background-color: var(--primary-color);
+    border-left: 5px solid #ffee32;
+}
+
+.tuma {
+    text-align: center;
+    margin-top: 30px;
+    /* border: 2px solid brown; */
+}
+
+.tuma input[type="submit"] {
+    height: 38px;
+    border-radius: 5px;
+    width: 130px;
+    transition: width .5s ease 0s;
+}
+
+.tuma input[type="submit"]:hover {
+    height: 38px;
+    border-radius: 5px;
+    width: 150px;
+
+}
+
+
+.star-rating {
+    direction: rtl;
+    display: inline-flex;
+    font-size: 2rem;
+    /* border: 2px solid black; */
+    margin-top: 0;
+}
+
+.star-rating input {
+    display: none;
+}
+
+.star-rating label {
+    cursor: pointer;
+    color: var(--accent-color1);
+    transition: color 0.2s;
+    /* border: 1px solid black; */
+    padding: 0px 15px 0px 15px;
+}
+
+.star-rating label::before {
+    content: "★";
+}
+
+.star-rating input:checked~label {
+    color: gold;
+}
+
+.star-rating label:hover,
+.star-rating label:hover~label {
+    color: var(--accent-color2);
+}
+
+@media only screen and (min-width: 700px) {
+
+    header,
+    main,
+    footer {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .mamadiv {
+        margin-left: 30px;
+    }
+
+    header,
+    footer {
+        border-radius: 6px;
+    }
+
+    footer {
+        margin: 30px 5px 5px 5px;
+
+    }
+
+    header {
+        margin: 5px 5px 5px 5px;
+    }
+}
