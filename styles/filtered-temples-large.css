@@ -19,4 +19,9 @@
         display: grid;
         grid-template-columns: 400px 1fr;
     }
+
+    .deminputs,
+    textarea {
+        width: 400px;
+    }
 }

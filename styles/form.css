@@ -38,14 +38,14 @@ body {
 }
 
 .mamadiv {
-    margin-left: 5px;
+    margin-left: 15px;
     margin-top: 20px;
 }
 
 .deminput,
 textarea {
     height: 44px;
-    width: 400px;
+    width: 300px;
     border-radius: 5px;
     font-size: 1rem;
     background-color: var(--primary-color);
@@ -63,7 +63,7 @@ label[for="writtenreview"],
 }
 
 textarea {
-    width: 400px;
+    width: 300px;
     height: 88px;
     border-radius: 5px;
 }
@@ -186,5 +186,13 @@ input[type="checkbox"] {
 
     header {
         margin: 5px 5px 5px 5px;
+    }
+
+    textarea {
+        width: 400px;
+    }
+
+    .deminput {
+        width: 400px;
     }
 }
