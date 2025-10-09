@@ -45,7 +45,7 @@ body {
 .deminput,
 textarea {
     height: 44px;
-    width: 300px;
+    width: 200px;
     border-radius: 5px;
     font-size: 1rem;
     background-color: var(--primary-color);
@@ -63,7 +63,7 @@ label[for="writtenreview"],
 }
 
 textarea {
-    width: 300px;
+    width: 200px;
     height: 88px;
     border-radius: 5px;
 }
