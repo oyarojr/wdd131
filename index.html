@@ -4,83 +4,173 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale-1.0">
-    <title>WDD 131 - Dynamic Web Fundamentals - Daniel Oyaro</title>
-    <link rel="stylesheet" href="styles/base.css">
-    <meta name="description" content="WDD 131 – Dynamic Web Fundamentals | Daniel Oyaro | ">
-    <meta name="author" content="Daniel  Oyaro">
-    <script defer src="scripts/getdates.js"></script>
+    <title>
+        EazyBuy: Your One-Click Shopping Platform
+    </title>
+    <meta name="description"
+        content="EazyBuy is your one-click shopping platform, offering a seamless and efficient online shopping experience.">
+    <meta name="author" content="Daniel Oyaro">
+    <link rel="stylesheet" href="styles/eazybuy.css">
+    <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Zalando+Sans:ital,wght@0,200..900;1,200..900&display=swap"
+        rel="stylesheet"> -->
+    <script defer src="scripts/eazybuy.js"></script>
 </head>
 
 <body>
     <header>
-        <!-- <div> -->
-        <h1 class="headr">
-            <span id="course-title">WDD 131 - Dynamic Web Fundamentals</span>
-        </h1>
-        <!-- </div> -->
-        <!-- <h1>A Holy Grail Layout Example</h1> -->
+        <div class="header">
+            <div class="positionhum">
+                <h1 class="site-title">EazyBuy</h1>
+                <a href="#" id="menu"></a>
+            </div>
+            <div>
+                <nav class="navdiv">
+                    <ul class="styletop">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="aboutus.html">About Us</a></li>
+                        <li><a href="eazybuyproductreview.html">Review</a></li>
+                    </ul>
+                </nav>
+            </div>
+
+        </div>
+        <div>
+            <div class="mamalogo">
+                <img src="images/logob.png" alt="eazybuy logo" class="logo">
+            </div>
+        </div>
+        <div class="welcoming-caption">
+            <h2>Welcome to EazyBuy</h2>
+            <p>Your one-click Shopping Platform</p>
+        </div>
+        <div class="button1">
+            <button onclick="window.location.href='aboutus.html'" class="eazybuy-btn">About Us</button>
+        </div>
     </header>
-    <nav class="styletop">
-        <ul>
-            <li><a href="www.google.com">LinkedIn</a></li>
-            <li><a href="https://byupw.instructure.com/.">Canvas</a></li>
-            <li><a
-                    href="https://www.churchofjesuschrist.org/study/scriptures/bofm/1-ne/3?lang=eng&id=p7#p7">Scripture</a>
-            </li>
-            <li><a href="www.google.com">Final Project</a></li>
-        </ul>
-    </nav>
+
+    <!-- Learnt how to build a carousel, credit to https://www.youtube.com/watch?v=6O8VhG1kRkY incorporated the design into my project -->
     <main>
-        <h1>
-            Daniel Oyaro
-        </h1>
-        <div class="mamadimama">
-            <div class="dichild1">
-                <section class="card">
-                    <h2>About Me</h2>
-                    <div class="dimama">
-                        <div class="di1">My name is Daniel and I go by Dan. I was born in Kenya and live with my family
-                            in Kenya. I am currently
-                            working a a doctor at Kisumu Specialists. My children are yet to be born though I look
-                            foward to
-                            spending time with them. I love to travel and I love to learn new things.</div>
-                        <div class="di2"><img src="images/profile.jpg" alt="Oyaro Daniel"></div>
-                        <div class="di3">
-                            <h3>Kisumu, Kenya</h3>
+
+        <div class="carousel-wrap">
+            <div class="carousel" aria-roledescription="carousel">
+                <div class="defining-tag1">
+                    <h3>
+                        Top Products this Week:
+                    </h3>
+                </div>
+                <div class="viewport" id="viewport" tabindex="0">
+                    <!-- We'll create 3 slides with 3 cards each (9 sample profiles) -->
+                    <!-- <div class="slide" data-index="0">
+                        <div class="card">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Jane Doe">
+                            <h3>Jane Doe</h3>
+                            <p class="role">Premium Member</p>
+                            <div class="meta">Email: jane.doe@email.com<br>Location: New York, USA<br>Orders: 24</div>
+                            <div class="badge">Gold</div>
                         </div>
-                        <div class="di4"><img src="images/kenya.jpg" alt="Kenya flag"></div>
-                        <div class="di5">Kenya, located in East Africa, is a vibrant and diverse country known for its
-                            breathtaking landscapes,rich cultural heritage, and dynamic wildlife. From the snow-capped
-                            peaks of Mount Kenya to
-                            the sun-drenched savannas of the Maasai Mara.
+                        <div class="card">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="John Smith">
+                            <h3>John Smith</h3>
+                            <p class="role">Member</p>
+                            <div class="meta">Email: john.smith@email.com<br>Location: London, UK<br>Orders: 12</div>
+                            <div class="badge">Bronze</div>
+                        </div>
+                        <div class="card">
+                            <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Ana Ruiz">
+                            <h3>Ana Ruiz</h3>
+                            <p class="role">Premium Member</p>
+                            <div class="meta">Email: ana.ruiz@email.com<br>Location: Madrid, ES<br>Orders: 40</div>
+                            <div class="badge">Platinum</div>
                         </div>
                     </div>
+                    <div class="slide" data-index="1">
+                        <div class="card">
+                            <img src="https://randomuser.me/api/portraits/men/43.jpg" alt="Liam Brown">
+                            <h3>Liam Brown</h3>
+                            <p class="role">Member</p>
+                            <div class="meta">Email: liam.brown@email.com<br>Location: Sydney, AU<br>Orders: 5</div>
+                            <div class="badge">New</div>
+                        </div>
+                        <div class="card">
+                            <img src="https://randomuser.me/api/portraits/women/22.jpg" alt="Maya Patel">
+                            <h3>Maya Patel</h3>
+                            <p class="role">VIP</p>
+                            <div class="meta">Email: maya.p@email.com<br>Location: Mumbai, IN<br>Orders: 82</div>
+                            <div class="badge">VIP</div>
+                        </div>
+                        <div class="card">
+                            <img src="https://randomuser.me/api/portraits/men/12.jpg" alt="Noah Lee">
+                            <h3>Noah Lee</h3>
+                            <p class="role">Premium Member</p>
+                            <div class="meta">Top Fry - Cooking Oil</div>
+                            <div class="badge">Gold</div>
+                        </div>
+                    </div>
+                    <div class="slide" data-index="2">
+                        <div class="card">
+                            <img src="https://randomuser.me/api/portraits/women/12.jpg" alt="Sara Kim">
+                            <h3>Sara Kim</h3>
+                            <p class="role">Member</p>
+                            <div class="meta">Email: sara.kim@email.com<br>Location: Toronto, CA<br>Orders: 9</div>
+                            <div class="badge">Silver</div>
+                        </div>
+                        <div class="card">
+                            <img src="https://randomuser.me/api/portraits/men/56.jpg" alt="Carlos Vega">
+                            <h3>Carlos Vega</h3>
+                            <p class="role">Premium Member</p>
+                            <div class="meta">Email: carlos.vega@email.com<br>Location: Mexico City, MX<br>Orders: 61
+                            </div>
+                            <div class="badge">Platinum</div>
+                        </div>
+                        <div class="card">
+                            <img src="https://randomuser.me/api/portraits/women/90.jpg" alt="Ivy Lin">
+                            <h3>Ivy Lin</h3>
+                            <p class="role">Member</p>
+                            <div class="meta">Email: ivy.lin@email.com<br>Location: Taipei, TW<br>Orders: 16</div>
+                            <div class="badge">Bronze</div>
+                        </div>
+                    </div> -->
 
-                </section>
-            </div>
-            <div class="dichild2">
-                <section class="card">
-                    <h2>Web Dev Resources</h2>
-                    <ul class="special">
-                        <li><a href="">Dev.to Community</a></li>
-                        <li><a href="">Smashing Magazine</a></li>
-                        <li><a href="">CSS Tricks</a></li>
-                        <li><a href="">W3 Schools</a></li>
-                        <li><a href="">Udemy</a></li>
-                        <li><a href="">Image Placeholder</a></li>
-                    </ul>
-                </section>
+                </div>
+                <div class="defining-tag1">
+                    <h3>
+                        Food Stuffs
+                    </h3>
+                </div>
+                <div class="viewport" id="viewport1" tabindex="0">
+
+                </div>
+                <div class="defining-tag1">
+                    <h3>
+                        Electronics
+                    </h3>
+                </div>
+                <div class="viewport" id="viewport2" tabindex="0">
+
+                </div>
+
+                <!-- <div class="nav" aria-hidden="false">
+                    <button id="prevBtn" aria-label="Previous slide">❮</button>
+                    <button id="nextBtn" aria-label="Next slide">❯</button>
+                </div> -->
+                <!-- slide indicators (dots) -->
+                <!-- <div class="dots" id="dots" aria-hidden="false" role="tablist"></div> -->
             </div>
         </div>
 
+
+
+
     </main>
-    <!-- <aside>
-        <img src="http://t3.gstatic.com/images?q=tbn:ANd9GcRhi_n5nCaFU1-iejEKTLDPFvOoZ6kSg58a7xJtFIS5n8Rvm8i7"
-            alt="Nairobi Temple" width="200">
-    </aside> -->
     <footer>
         <p class="p1">©<span id="currentyear"></span>| Daniel Oyaro | Kenya</p>
         <p class="p2" id="lastModified"></p>
     </footer>
+</body>
+
+
 
 </html>
