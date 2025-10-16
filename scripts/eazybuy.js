@@ -24,7 +24,7 @@ const items = [
     {
         itemName1: "Dishwasher",
         price1: "Ksh40,000",
-        imageUrl1: "images/dishwasher.png",
+        imageUrl1: "images/dishwasher.webp",
 
         itemName2: "Toaster",
         price2: "Ksh3,000",
@@ -32,7 +32,7 @@ const items = [
 
         itemName3: "Blender",
         price3: "Ksh5,000",
-        imageUrl3: "images/blender.jpg",
+        imageUrl3: "images/blender.webp",
     }
 ];
 
@@ -40,21 +40,21 @@ const items1 = [
     {
         itemName1: "Crisps",
         price1: "Ksh600",
-        imageUrl1: "images/crisps.jpg",
+        imageUrl1: "images/crisps.webp",
 
 
         itemName2: "Flour",
         price2: "Ksh200",
-        imageUrl2: "images/flour.jpg",
+        imageUrl2: "images/flour.webp",
 
         itemName3: "Cooking Oil",
         price3: "Ksh900",
-        imageUrl3: "images/cookingoil.jpg"
+        imageUrl3: "images/cookingoil.webp"
     },
     {
         itemName1: "Afia Juice",
         price1: "Ksh150",
-        imageUrl1: "images/juice.jpeg",
+        imageUrl1: "images/juice.webp",
 
         itemName2: "Canned Meat",
         price2: "Ksh800",
@@ -75,7 +75,7 @@ const items2 = [
 
         itemName2: "Washing Machine",
         price2: "Ksh 65,000",
-        imageUrl2: "images/washingmachine.jpeg",
+        imageUrl2: "images/washingmachine.webp",
 
         itemName3: "Lenovo Legion Laptop",
         price3: "Ksh40,000",
@@ -96,34 +96,6 @@ const items2 = [
     }
 ];
 
-
-// const container = document.getElementById("viewport");
-// for (let idx = 0; idx < items.length; idx++) {
-//     const slide = items[idx];
-//     const branchDiv = document.createElement("div");
-//     branchDiv.className = "slide ";
-//     branchDiv.setAttribute("data-index", idx); // First div gets 0, second gets 1, etc.
-
-//     branchDiv.innerHTML = `
-//         <div class="card">
-//             <img src="${slide.imageUrl1}" alt="${slide.itemName1}">
-//             <h3>${slide.itemName1}</h3>
-//             <div class="badge">${slide.price1}</div>
-//         </div>
-//         <div class="card">
-//             <img src="${slide.imageUrl2}" alt="${slide.itemName2}">
-//             <h3>${slide.itemName2}</h3>
-//             <div class="badge">${slide.price2}</div>
-//         </div>
-//         <div class="card">
-//             <img src="${slide.imageUrl3}" alt="${slide.itemName3}">
-//             <h3>${slide.itemName3}</h3>
-//             <div class="badge">${slide.price3}</div>
-//         </div>
-//     `;
-
-//     container.appendChild(branchDiv);
-// }
 
 function getdemslides(id, list) {
     const container1 = document.getElementById(id);
